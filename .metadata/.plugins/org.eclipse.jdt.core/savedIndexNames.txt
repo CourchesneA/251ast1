@@ -1,0 +1,2 @@
+INDEX VERSION 1.129+/home/anthony/Learning/school/COMP251/assignment1/.metadata/.plugins/org.eclipse.jdt.core
+1412680892.index
