@@ -147,7 +147,7 @@ public class COMP251HW1 {
 		double collisionCount =0;
 		Set<Integer> set = new java.util.HashSet<Integer>();
 		for(int i=0; i< n; i++) {	//add n keys to the set, count collisions
-			double akey = generateRandomNumberInRange(0, (Math.pow(2,r)));
+			double akey = generateRandomNumberInRange(0, (Math.pow(2,r))-1);
 			int mappedKey = divHash(akey, r);
 			//System.out.println("mapped: "+mappedKey);
 			if(!set.add(mappedKey))
@@ -214,7 +214,7 @@ public class COMP251HW1 {
 		double collisionCount =0;
 		Set<Integer> set = new java.util.HashSet<Integer>();
 		for(int i=0; i< n; i++) {	//add n keys to the set, count collisions
-			double akey = generateRandomNumberInRange(0, (Math.pow(2,r)));
+			double akey = generateRandomNumberInRange(0, (Math.pow(2,r))-1);
 			int mappedKey = multHash(A, akey, r, w);
 			//System.out.println("mapped: "+mappedKey);
 			if(!set.add(mappedKey))
@@ -226,7 +226,9 @@ public class COMP251HW1 {
 
 	public int multHash(double A, double k, double r, double w) {
 		double val1 = (A * k) % Math.pow(2, w);
-		double ret = val1/Math.pow(2,(w-r));	// dividing by 2^(w-r) == shift right (w-r) times
+		System.out.println(">"+val1+ " -- "+ Math.pow(2, w)+ " -- "+k + " -- "+ A);
+		//double ret = val1/Math.pow(2,(w-r));	// dividing by 2^(w-r) == shift right (w-r) times
+		int ret =   (int)val1 >>> ((int)(w-r));
 		return (int) Math.floor(ret);	//get the floor to have a slot number
 	}
 
