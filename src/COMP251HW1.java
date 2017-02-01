@@ -145,10 +145,11 @@ public class COMP251HW1 {
 		// to the set. If the value is already there (set.add return false), I increment collisionCount
 		
 		double collisionCount =0;
-		Set<Double> set = new java.util.HashSet<Double>();
+		Set<Integer> set = new java.util.HashSet<Integer>();
 		for(int i=0; i< n; i++) {	//add n keys to the set, count collisions
 			double akey = generateRandomNumberInRange(0, (Math.pow(2,r)));
-			double mappedKey = divHash(akey, r);
+			int mappedKey = divHash(akey, r);
+			//System.out.println("mapped: "+mappedKey);
 			if(!set.add(mappedKey))
 				collisionCount++;		
 		}
@@ -162,9 +163,9 @@ public class COMP251HW1 {
 	 * @param r
 	 * @return
 	 */
-	public double divHash (double k, double r) {
-		double d = Math.pow(2, r)-1;
-		return k % d;
+	public int divHash (double k, double r) {
+		double d = Math.pow(2, r);
+		return (int) Math.floor(k % d); //get the floor to have a slot number
 	}
 
 	/**
@@ -208,13 +209,14 @@ public class COMP251HW1 {
 
 		/*TO STUDENT: WRITE YOUR CODE HERE*/
 
-		//Idea: same process has for division algorithm
+		//Idea: same process as for division algorithm
 
 		double collisionCount =0;
-		Set<Double> set = new java.util.HashSet<Double>();
+		Set<Integer> set = new java.util.HashSet<Integer>();
 		for(int i=0; i< n; i++) {	//add n keys to the set, count collisions
 			double akey = generateRandomNumberInRange(0, (Math.pow(2,r)));
-			double mappedKey = multHash(A, akey, r, w);
+			int mappedKey = multHash(A, akey, r, w);
+			//System.out.println("mapped: "+mappedKey);
 			if(!set.add(mappedKey))
 				collisionCount++;		
 		}
@@ -222,10 +224,10 @@ public class COMP251HW1 {
 		return collisionCount;
 	}
 
-	public double multHash(double A, double k, double r, double w) {
+	public int multHash(double A, double k, double r, double w) {
 		double val1 = (A * k) % Math.pow(2, w);
 		double ret = val1/Math.pow(2,(w-r));	// dividing by 2^(w-r) == shift right (w-r) times
-		return ret;
+		return (int) Math.floor(ret);	//get the floor to have a slot number
 	}
 
 	/**
